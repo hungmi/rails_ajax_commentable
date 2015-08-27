@@ -1,0 +1,15 @@
+.col-sm-1
+  = image_tag("#{comment.author.email}")
+.col-sm-11
+  %blockquote
+    = comment.content
+    %footer
+      %span= comment.author.last_name
+  .col-sm-offset-1
+    - comment.comments.try(:each) do |reply|      
+      %blockquote
+        = reply.content
+        %footer
+          %span= reply.author.last_name
+
+    = render 'comments/form', obj: comment

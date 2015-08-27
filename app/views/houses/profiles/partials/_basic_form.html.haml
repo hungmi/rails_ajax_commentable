@@ -1,0 +1,17 @@
+= f.error_notification
+
+%div{ class: ('ajax-input' if action_name == "basic") }
+  .row
+    - [:house_type, :foreigner].each do |x|
+      .col-sm-6
+        = render 'partials/act_as_radio_button', x: x, f: f, obj: @house
+
+        = f.input :english_help, as: :boolean if x == :foreigner
+  
+  %hr
+  = f.association :school, collection: School.categories, prompt: true
+
+  = render 'houses/profiles/partials/address_form', f: f
+
+.text-center.hidden
+  = f.button :submit

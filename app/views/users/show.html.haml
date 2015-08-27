@@ -1,0 +1,66 @@
+= image_tag("#{@user.image}")
+%p
+  %b ID
+  = @user.id
+%p
+  %b= t User.human_attribute_name(:provider)
+  = @user.provider
+%p
+  %b= t User.human_attribute_name(:uid)
+  = @user.uid
+%p
+  %b= User.human_attribute_name(:full_name)
+  = @user.full_name
+%p
+  %b= t User.human_attribute_name(:phone_number)
+  = @user.phone_number
+%p
+  %b= t User.human_attribute_name(:email)
+  = @user.email
+%p
+  %b= t User.human_attribute_name(:facebook_page)
+  = link_to @user.fb_url
+%p
+  %b= t User.human_attribute_name(:location)
+  = @user.location
+%p
+  %b= t User.human_attribute_name(:school)
+  = @user.school_name
+  /= render_school_category(@user.school_id)
+%p
+  %b= t User.human_attribute_name(:start_school_year)
+  = @user.start_school_year
+%p
+  %b= t User.human_attribute_name(:pin)
+  = @user.pin.content if @user.pin
+%p
+  %b= t User.human_attribute_name(:verified)
+  - if @user.verified
+    您已完成手機驗證
+  - else
+    您尚未完成手機驗證
+    = link_to phone_verify_user_path(@user) do
+      = t ".verify"
+    = link_to resend_pin_user_path(@user) do
+      = t ".resend_pin"
+
+= render 'common/fb_login_button' unless @user.provider == 'facebook'
+/= link_to 'Connect with facebook', facebook_signin_path unless @user.provider == 'facebook'
+- unless @user.sign_with_zuker
+  %span.btn.btn-info#connect-fb
+    Connect with Zuker
+/= link_to 'Connect with Zuker', edit_user_path(@user), id:'connect-fb' unless @user.sign_with_zuker
+= link_to edit_user_path(@user) do
+  = t '.edit'
+= link_to user_path(@user), method: :delete, data: {confirm: "Are you sure?"} do
+  = t '.delete'
+
+#login_form.hide
+  = render 'login_form', id: @user.id
+
+= link_to "My houses", houses_path
+
+#comments-section
+  = render "comments/comments_section", obj: @user
+
+= console
