@@ -8,10 +8,11 @@ app/controllers/concerns/commentable_actions.rb
 app/models/concerns/commentable.rb
 ```
 ## Controller
+``` ruby
 class UsersController < ApplicationController
   include CommentableActions
 end
-
+```
 ## Model
 ``` ruby
 class User < ActiveRecord::Base
