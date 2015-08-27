@@ -32,11 +32,12 @@ end
 
 ## Usage
 
-### All comments ON a USER
+### All comments ON an USER
 ``` ruby
 User.first.comments
 ```
-### All comments OF a AUTHOR
+### All comments OF an AUTHOR
+NOTE: Only User can be Author.
 ``` ruby
 User.first.my_comments
 ```
